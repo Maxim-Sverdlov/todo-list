@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO LIST</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="visually-hidden">APP TODO LIST</h1>
+        <header class="header">
+            <div class="header__container">
+                <a class="header__logo" href="https://senlainc.com/" title="web site company SENLA">
+                    <img src="./images/content/logo.svg" width="174" height="44" alt="Company SENLA Logo">
+                </a>
+                <form action="./server.php" method="POST">
+                    <input class="header__search" type="search" placeholder="Search task for to do">
+                </form>
+            </div>
+        </header>
+        <main class="main">
+            <ul class="filter">
+                <li class="filter__item filter__item--active">All</li>
+                <li class="filter__item">Active</li>
+                <li class="filter__item">Done</li>
+            </ul>
+
+            <section class="task-block">
+                <h2 class="visually-hidden">Add task</h2>
+                <label class="task-block__label" for="new-task">New Task</label>
+                <textarea class="task-block__text" name="add-task" id="new-task" cols="10" rows="5"></textarea>
+                <button type="button" class="task-block__btn btn btn--add">Add</button>
+            </section>
+
+            <ul class="list-task">
+                <li class="list-task__item list-task__item--done">
+                    <p>Попить чайку</p>
+                    <div class="list-task__control">
+                        <button type="button" class="btn btn--important">Mark important</button>
+                        <button type="button" class="btn btn--delete"><span class="visually-hidden">Delete</span></button>
+                    </div>
+                </li>
+                <li class="list-task__item  list-task__item--important">
+                    <p>Прочитать, что такое JAVASCRIPT</p>
+                    <div class="list-task__control">
+                        <button type="button" class="btn btn--important">Mark important</button>
+                        <button type="button" class="btn btn--delete"><span class="visually-hidden">Delete</span></button>
+                    </div>
+                </li>
+                <li class="list-task__item">
+                    <p>Отправить тестовое задание на курсы SENLA до 1 марта</p>
+                    <div class="list-task__control">
+                        <button type="button" class="btn btn--important">Mark important</button>
+                        <button type="button" class="btn btn--delete"><span class="visually-hidden">Delete</span></button>
+                    </div>
+                </li>
+                <li class="list-task__item">
+                    <p>Записаться на курсы по REACT JS от SENLA</p>
+                    <div class="list-task__control">
+                        <button type="button" class="btn btn--important">Mark important</button>
+                        <button type="button" class="btn btn--delete"><span class="visually-hidden">Delete</span></button>
+                    </div>
+                </li>
+                <li class="list-task__item list-task__item--done">
+                    <p>Проснуться</p>
+                    <div class="list-task__control">
+                        <button type="button" class="btn btn--important">Mark important</button>
+                        <button type="button" class="btn btn--delete"><span class="visually-hidden">Delete</span></button>
+                    </div>
+                </li>
+            </ul>
+        </main>
+    </div>
+</body>
+</html>
