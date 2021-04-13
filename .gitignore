@@ -19,7 +19,5 @@ Thumbs.db
 npm-debug.log
 
 node_modules/
-node_modules-my/
-reserve/
 dist/
 tmp/
