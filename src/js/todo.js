@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getList() {
-        return localStorage.getItem('todo-list') !== null ? JSON.parse(localStorage.getItem('todo-list')) : '';
+        return localStorage.getItem('todo-list') !== null ? JSON.parse(localStorage.getItem('todo-list')) : [];
     }
 
     function renderList(arr) {
