@@ -1,14 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     // VARIABLES
     let todoArr = [];
-
-    const filter = document.querySelector('.filter');
     let filterValue = 'All';
 
+    const search = document.querySelector('.search');
+    const filter = document.querySelector('.filter');
     const addTodoBtn = document.querySelector('.task-block__btn');
     const textarea = document.querySelector('.task-block__text');
     const listTask = document.querySelector('.list-task');
-
     // FUNCTIONS
     function saveToLocalStorage(task) {
         todoArr.push(task);
@@ -64,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function getList() {
-        return localStorage.getItem('todo-list') !== null ? JSON.parse(localStorage.getItem('todo-list')) : [];
+        return localStorage.getItem('todo-list') !== null ? JSON.parse(localStorage.getItem('todo-list')) : '';
     }
 
     function renderList(arr) {
@@ -94,6 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 btnImportant.innerText = 'Mark important';
                 btnImportant.classList.add('btn--important');
+            }
+
+            if (item.type === 'done') {
+                btnImportant.classList.add('not-display');
             }
 
             const btnDelete = document.createElement('button');
@@ -144,6 +147,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderList(todoArr);
 
+    let visibleList = listTask.querySelectorAll('li:not(.not-display)');
+
+    search.addEventListener('keyup', (e) => {
+        const val = search.value.trim();
+
+        if (val !== '') {
+            visibleList.forEach((item) => {
+                if (item.children[0].innerText.search(val) === -1) {
+                    item.classList.add('not-display');
+                } else {
+                    item.classList.remove('not-display');
+                }
+            });
+        } else {
+            visibleList.forEach((item) => {
+                item.classList.remove('not-display');
+            });
+        }
+
+        if (e.code === 'Escape') {
+            search.value = '';
+            visibleList.forEach((item) => item.classList.remove('not-display'));
+        }
+    });
+
     filter.addEventListener('click', (e) => {
         const { target } = e;
 
@@ -156,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             filterValue = target.innerText;
 
-            switch (target.innerText) {
+            switch (filterValue) {
                 case 'All':
                     todoItems.forEach((item) => item.classList.remove('not-display'));
                     break;
@@ -181,6 +209,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 default:
                     break;
             }
+
+            visibleList = listTask.querySelectorAll('li:not(.not-display)');
+            search.value = '';
         }
     });
 
@@ -195,6 +226,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = getIndexTodo(target);
             changeTodoType(index, 'done');
 
+            const btn = target.querySelector('.btn');
+            btn.classList.add('not-display');
+
             if (filterValue === 'Active') {
                 target.classList.add('not-display');
             } else {
@@ -205,6 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const index = getIndexTodo(target);
             changeTodoType(index, 'active');
+
+            const btn = target.querySelector('.btn');
+            btn.classList.remove('not-display');
 
             if (filterValue === 'Done') {
                 target.classList.add('not-display');

@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "description": "My first webpack config",
   "homepage": "https://github.com/Maxim-Sverdlov/todo-list#readme",
-  "browserslist": "> 0.25%, not dead",
-  "dependencies": {},
+  "dependencies": {
+    "core-js": "^3.10.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
@@ -63,6 +64,5 @@
     "lint:js": "eslint --ext .js src/js/",
     "lint:fix": "eslint . --fix",
     "stats": "webpack --config configuration/webpack.prod.config.js --mode=production --json > dist/stats.json && webpack-bundle-analyzer dist/stats.json"
-  },
-  "target": "es5"
+  }
 }
