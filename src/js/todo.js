@@ -1,3 +1,5 @@
+// const { isArray } = require('core-js/core/array');
+
 document.addEventListener('DOMContentLoaded', () => {
     // VARIABLES
     let todoArr = [];
