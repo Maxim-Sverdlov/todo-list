@@ -45,7 +45,7 @@
 .main::after {
   content: "";
   background: url("../images/content/bg.svg") no-repeat;
-  background-attachment: scroll, fixed;
+  //background-attachment: scroll, fixed;
 
   position: absolute;
   top: 123px;
@@ -279,5 +279,102 @@
     border-radius: 50%;
 
     box-shadow: none;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
+  .main::after {
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 0 15px;
+  }
+  .header__container {
+    width: 710px;
+  }
+  .header__search {
+    width: 510px;
+  }
+
+  .filter {
+    margin: 27px 0 0;
+    width: 710px;
+  }
+
+  .main::after {
+    top: 212px;
+    right: 0;
+
+    margin: 0 auto;
+    width: 710px;
+    height: 600px;
+
+    background-size: contain;
+  }
+
+  .task-block {
+    margin: 24px 0 0;
+    width: 710px;
+  }
+
+  .list-task {
+    margin: 23px 0 0;
+    width: 710px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .container {
+    width: 90%;
+
+    padding: 0 15px;
+  }
+
+  .header__container {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header__logo {
+    align-self: center;
+  }
+
+  .header__search {
+    margin: 10px 0 0;
+    width: 100%;
+  }
+
+  .filter {
+    margin: 27px 0 0;
+    width: 100%;
+  }
+
+  .main::after {
+    top: 250px;
+    right: 0;
+
+    margin: 0 auto;
+    width: 100%;
+    min-width: 258px;
+    max-width: 700px;
+    min-height: 250px;
+    max-height: 500px;
+
+    background-size: contain;
+  }
+
+  .task-block {
+    margin: 24px 0 0;
+    width: 100%;
+  }
+
+  .list-task {
+    margin: 23px 0 0;
+    width: 100%;
   }
 }
