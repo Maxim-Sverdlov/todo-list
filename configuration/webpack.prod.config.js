@@ -30,4 +30,6 @@ module.exports = merge(webpackConfiguration, {
 
     /* Additional plugins configuration */
     plugins: [],
+
+    target: 'browserslist',
 });

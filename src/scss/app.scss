@@ -1,5 +1,6 @@
-@import 'base/normalize';
-@import 'base/fonts';
-@import 'base/scaffolding';
+@import "base/normalize";
+@import "base/fonts";
+@import "base/scaffolding";
 
-@import 'application.scss';
+@import "header/header";
+@import "main/main";

@@ -1,32 +1,42 @@
-// const { isArray } = require('core-js/core/array');
+class Todo {
+    constructor() {
+        this.todoArr = [];
+        this.visibleList = [];
+        this.filterValue = 'All';
+        this.search = document.querySelector('.search');
+        this.filter = document.querySelector('.filter');
+        this.addTodoBtn = document.querySelector('.task-block__btn');
+        this.textarea = document.querySelector('.task-block__text');
+        this.listTask = document.querySelector('.list-task');
 
-document.addEventListener('DOMContentLoaded', () => {
-    // VARIABLES
-    let todoArr = [];
-    let filterValue = 'All';
-    let visibleList = [];
-
-    const search = document.querySelector('.search');
-    const filter = document.querySelector('.filter');
-    const addTodoBtn = document.querySelector('.task-block__btn');
-    const textarea = document.querySelector('.task-block__text');
-    const listTask = document.querySelector('.list-task');
-
-    // FUNCTIONS
-    function saveToLocalStorage(task) {
-        todoArr.push(task);
-        localStorage.setItem('todo-list', JSON.stringify(todoArr));
+        this.search.addEventListener('keyup', (e) => {
+            this.searchTodo(e);
+        });
+        this.filter.addEventListener('click', (e) => {
+            this.filterHandler(e);
+        });
+        this.addTodoBtn.addEventListener('click', () => {
+            this.addTodo();
+        });
+        this.listTask.addEventListener('click', (e) => {
+            this.processAction(e);
+        });
     }
 
-    function removeFromLocalStorage(todoIndex) {
-        todoArr.splice(todoIndex, 1);
-        localStorage.setItem('todo-list', JSON.stringify(todoArr));
+    saveToLocalStorage(task) {
+        this.todoArr.push(task);
+        localStorage.setItem('todo-list', JSON.stringify(this.todoArr));
     }
 
-    function filterOut() {
+    removeFromLocalStorage(todoIndex) {
+        this.todoArr.splice(todoIndex, 1);
+        localStorage.setItem('todo-list', JSON.stringify(this.todoArr));
+    }
+
+    filterOut() {
         const todoItems = document.querySelectorAll('.list-task__item');
 
-        switch (filterValue) {
+        switch (this.filterValue) {
             case 'All':
                 todoItems.forEach((item) => item.classList.remove('not-display'));
                 break;
@@ -52,26 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 break;
         }
 
-        visibleList = listTask.querySelectorAll('li:not(.not-display)');
+        this.visibleList = this.listTask.querySelectorAll('li:not(.not-display)');
     }
 
-    function addTodo() {
-        if (textarea.value.trim() !== null && textarea.value.trim() !== '') {
+    addTodo() {
+        if (this.textarea.value.trim() !== null && this.textarea.value.trim() !== '') {
             const li = document.createElement('li');
             li.classList.add('list-task__item');
 
             const p = document.createElement('p');
-            p.innerText = textarea.value;
+            p.innerText = this.textarea.value;
 
             li.append(p);
 
             const task = {
-                name: textarea.value,
+                name: p.innerText,
                 type: 'active',
                 important: false,
             };
 
-            saveToLocalStorage(task);
+            // ADD TO LOCAlSTORAGE
+            this.saveToLocalStorage(task);
 
             const div = document.createElement('div');
             div.classList.add('list-task__control');
@@ -91,19 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.append(div);
 
-            listTask.append(li);
+            this.listTask.append(li);
 
-            filterOut();
+            // FILTER TODO
+            this.filterOut();
 
-            textarea.value = '';
+            this.textarea.value = '';
         }
     }
 
-    function getList() {
+    getList() {
         return localStorage.getItem('todo-list') !== null ? JSON.parse(localStorage.getItem('todo-list')) : [];
     }
 
-    function renderList(arr) {
+    renderList(arr) {
         arr.forEach((item) => {
             const li = document.createElement('li');
             li.classList.add('list-task__item');
@@ -146,51 +158,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
             li.append(div);
 
-            listTask.append(li);
+            this.listTask.append(li);
         });
     }
 
-    function getIndexTodo(parent) {
+    getIndexTodo(parent) {
         let index = -1;
         const text = parent.children[0].innerText;
-        const findedObj = todoArr.find((o) => o.name === text);
+        const findedObj = this.todoArr.find((o) => o.name === text);
 
-        index = todoArr.indexOf(findedObj);
+        index = this.todoArr.indexOf(findedObj);
         return index;
     }
 
-    function changeTodoType(index, type) {
+    changeTodoType(index, type) {
         switch (type) {
             case 'active':
-                todoArr[index].type = 'active';
+                this.todoArr[index].type = 'active';
                 break;
             case 'done':
-                todoArr[index].type = 'done';
+                this.todoArr[index].type = 'done';
                 break;
             case 'important':
-                todoArr[index].important = true;
+                this.todoArr[index].important = true;
                 break;
             case 'not-important':
-                todoArr[index].important = false;
+                this.todoArr[index].important = false;
                 break;
             default:
                 break;
         }
 
-        localStorage.setItem('todo-list', JSON.stringify(todoArr));
+        localStorage.setItem('todo-list', JSON.stringify(this.todoArr));
     }
 
-    todoArr = getList();
-
-    renderList(todoArr);
-
-    visibleList = listTask.querySelectorAll('li:not(.not-display)');
-
-    function searchTodo(e) {
-        const val = search.value.trim();
+    searchTodo(e) {
+        const val = this.search.value.trim();
 
         if (val !== '') {
-            visibleList.forEach((item) => {
+            this.visibleList.forEach((item) => {
                 if (item.children[0].innerText.search(val) === -1) {
                     item.classList.add('not-display');
                 } else {
@@ -198,46 +204,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         } else {
-            visibleList.forEach((item) => {
+            this.visibleList.forEach((item) => {
                 item.classList.remove('not-display');
             });
         }
 
         if (e.code === 'Escape') {
-            search.value = '';
-            visibleList.forEach((item) => item.classList.remove('not-display'));
+            this.search.value = '';
+            this.visibleList.forEach((item) => item.classList.remove('not-display'));
         }
     }
 
-    function filterHandler(e) {
+    filterHandler(e) {
         const { target } = e;
 
         if (target.classList.contains('filter__item') && !target.classList.contains('filter__item--active')) {
-            filter.querySelector('.filter__item--active').classList.toggle('filter__item--active');
+            this.filter.querySelector('.filter__item--active').classList.toggle('filter__item--active');
 
             target.classList.toggle('filter__item--active');
 
-            filterValue = target.innerText;
+            this.filterValue = target.innerText;
 
-            filterOut();
+            this.filterOut();
 
-            search.value = '';
+            this.search.value = '';
         }
     }
 
-    function processAction(e) {
+    processAction(e) {
         const { target } = e;
 
         if (target.classList.contains('list-task__item') && !target.classList.contains('list-task__item--done')) {
             target.classList.add('list-task__item--done');
 
-            const index = getIndexTodo(target);
-            changeTodoType(index, 'done');
+            const index = this.getIndexTodo(target);
+            this.changeTodoType(index, 'done');
 
             const btn = target.querySelector('.btn');
             btn.classList.add('not-display');
 
-            if (filterValue === 'Active') {
+            if (this.filterValue === 'Active') {
                 target.classList.add('not-display');
             } else {
                 target.classList.remove('not-display');
@@ -245,13 +251,13 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (target.classList.contains('list-task__item') && target.classList.contains('list-task__item--done')) {
             target.classList.remove('list-task__item--done');
 
-            const index = getIndexTodo(target);
-            changeTodoType(index, 'active');
+            const index = this.getIndexTodo(target);
+            this.changeTodoType(index, 'active');
 
             const btn = target.querySelector('.btn');
             btn.classList.remove('not-display');
 
-            if (filterValue === 'Done') {
+            if (this.filterValue === 'Done') {
                 target.classList.add('not-display');
             } else {
                 target.classList.remove('not-display');
@@ -265,8 +271,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             target.innerText = 'Not important';
 
-            const index = getIndexTodo(parent);
-            changeTodoType(index, 'important');
+            const index = this.getIndexTodo(parent);
+            this.changeTodoType(index, 'important');
         } else if (target.classList.contains('btn--not-important')) {
             const parent = target.parentNode.parentNode;
             parent.classList.remove('list-task__item--important');
@@ -276,23 +282,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             target.innerText = 'Mark important';
 
-            const index = getIndexTodo(parent);
-            changeTodoType(index, 'not-important');
+            const index = this.getIndexTodo(parent);
+            this.changeTodoType(index, 'not-important');
         } else if (target.classList.contains('btn--delete')) {
             const parent = target.parentNode.parentNode;
 
-            const index = getIndexTodo(parent);
-            removeFromLocalStorage(index);
+            const index = this.getIndexTodo(parent);
+            this.removeFromLocalStorage(index);
 
             parent.remove();
         }
     }
 
-    search.addEventListener('keyup', (e) => searchTodo(e));
+    init() {
+        this.todoArr = this.getList();
 
-    filter.addEventListener('click', (e) => filterHandler(e));
+        this.renderList(this.todoArr);
 
-    addTodoBtn.addEventListener('click', addTodo);
+        this.visibleList = this.listTask.querySelectorAll('li:not(.not-display)');
+    }
+}
 
-    listTask.addEventListener('click', (e) => processAction(e));
+document.addEventListener('DOMContentLoaded', () => {
+    const todo = new Todo();
+
+    todo.init();
 });

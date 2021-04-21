@@ -138,6 +138,6 @@ module.exports = {
             ],
         }),
     ].concat(htmlPluginEntries),
-    target: 'browserslist',
+    // target: 'browserslist',
     // target: 'web',
 };
