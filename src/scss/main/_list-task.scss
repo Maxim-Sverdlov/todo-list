@@ -44,7 +44,7 @@
     cursor: pointer;
   }
   &__item--done p {
-    text-decoration-line: line-through;
+    text-decoration: line-through;
   }
   &__item--important p {
     position: relative;
@@ -65,6 +65,8 @@
   }
   &__control {
     visibility: hidden;
+    display: flex;
+    justify-content: center;
   }
   &__item:hover &__control {
     position: absolute;
