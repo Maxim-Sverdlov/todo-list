@@ -5,7 +5,8 @@
   "description": "My first webpack config",
   "homepage": "https://github.com/Maxim-Sverdlov/todo-list#readme",
   "dependencies": {
-    "core-js": "^3.10.1"
+    "core-js": "^3.10.1",
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

@@ -1,5 +1,3 @@
-// const { isArray } = require('core-js/core/array');
-
 document.addEventListener('DOMContentLoaded', () => {
     // VARIABLES
     let todoArr = [];
@@ -63,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const p = document.createElement('p');
             p.innerText = textarea.value;
 
-            li.append(p);
+            li.insertAdjacentElement('beforeend', p);
+            // li.append(p);
 
             const task = {
                 name: textarea.value,
@@ -86,12 +85,18 @@ document.addEventListener('DOMContentLoaded', () => {
             btnDelete.classList.add('btn');
             btnDelete.classList.add('btn--delete');
 
+            /*
             div.append(btnImportant);
             div.append(btnDelete);
 
             li.append(div);
+            */
+            div.insertAdjacentElement('beforeend', btnImportant);
+            div.insertAdjacentElement('beforeend', btnDelete);
+            li.insertAdjacentElement('beforeend', div);
 
-            listTask.append(li);
+            // listTask.append(li);
+            listTask.insertAdjacentElement('beforeend', li);
 
             filterOut();
 
@@ -116,7 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const p = document.createElement('p');
             p.innerText = item.name;
 
-            li.append(p);
+            // li.append(p);
+            li.insertAdjacentElement('beforeend', p);
 
             const div = document.createElement('div');
             div.classList.add('list-task__control');
@@ -141,12 +147,19 @@ document.addEventListener('DOMContentLoaded', () => {
             btnDelete.classList.add('btn');
             btnDelete.classList.add('btn--delete');
 
+            /*
             div.append(btnImportant);
             div.append(btnDelete);
 
             li.append(div);
+            */
+            div.insertAdjacentElement('beforeend', btnImportant);
+            div.insertAdjacentElement('beforeend', btnDelete);
 
-            listTask.append(li);
+            li.insertAdjacentElement('beforeend', div);
+
+            // listTask.append(li);
+            listTask.insertAdjacentElement('beforeend', li);
         });
     }
 
@@ -284,7 +297,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const index = getIndexTodo(parent);
             removeFromLocalStorage(index);
 
-            parent.remove();
+            // parent.remove();
+            listTask.removeChild(parent);
         }
     }
 
