@@ -9,6 +9,10 @@
 
   &__item {
     flex-basis: 175px;
+  }
+  &__link {
+    display: block;
+
     padding: 24px 0 0;
 
     font-weight: 900;
@@ -18,15 +22,15 @@
     color: #53565a;
 
     opacity: 0.5;
+    text-decoration: none;
+
+    transition: all 0.5s ease;
   }
-  &__item:hover {
-    cursor: pointer;
-  }
-  &__item--active {
+  &__link--active {
     position: relative;
     opacity: 1;
   }
-  &__item--active::before {
+  &__link--active::before {
     content: "";
     position: absolute;
     top: 0;
@@ -38,6 +42,9 @@
     height: 4px;
 
     background: #2f80ed;
+  }
+  &__link:focus-visible {
+    outline: 1px auto rgba(47, 128, 237, 1);
   }
 }
 
@@ -54,7 +61,7 @@
     width: 100%;
 
     &__item {
-      flex-basis: 33%;
+      flex-basis: 33.33%;
     }
   }
 }

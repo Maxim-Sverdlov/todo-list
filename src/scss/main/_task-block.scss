@@ -31,6 +31,10 @@
     background: #ffffff;
   }
 
+  &__text:focus-visible {
+    outline: 1px auto rgba(47, 128, 237, 1);
+  }
+
   &__btn {
     margin: 10px 0 0 0;
     width: 191px;
@@ -39,6 +43,10 @@
     align-self: flex-end;
 
     background: #2f80ed;
+  }
+
+  &__btn:focus-visible {
+    outline: 1px auto #000;
   }
 }
 

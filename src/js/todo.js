@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let filterValue = 'All';
     let visibleList = [];
 
+    const form = document.querySelector('.form');
     const search = document.querySelector('.search');
     const filter = document.querySelector('.filter');
     const addTodoBtn = document.querySelector('.task-block__btn');
@@ -200,6 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
     visibleList = listTask.querySelectorAll('li:not(.not-display)');
 
     function searchTodo(e) {
+        e.preventDefault();
         const val = search.value.trim();
 
         if (val !== '') {
@@ -223,12 +225,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function filterHandler(e) {
+        e.preventDefault();
         const { target } = e;
 
-        if (target.classList.contains('filter__item') && !target.classList.contains('filter__item--active')) {
-            filter.querySelector('.filter__item--active').classList.toggle('filter__item--active');
+        if (target.classList.contains('filter__link') && !target.classList.contains('filter__link--active')) {
+            filter.querySelector('.filter__link--active').classList.toggle('filter__link--active');
 
-            target.classList.toggle('filter__item--active');
+            target.classList.toggle('filter__link--active');
 
             filterValue = target.innerText;
 
@@ -303,6 +306,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     search.addEventListener('keyup', (e) => searchTodo(e));
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+    });
 
     filter.addEventListener('click', (e) => filterHandler(e));
 

@@ -11,6 +11,9 @@
 
     width: 776px;
   }
+  &__logo:focus-visible {
+    outline: 1px auto rgba(47, 128, 237, 1);
+  }
   &__search {
     position: relative;
     margin: 2px 0 0;
@@ -31,6 +34,9 @@
   }
   &__search::placeholder {
     opacity: 0.5;
+  }
+  &__search:focus-visible {
+    outline: 1px auto rgba(47, 128, 237, 1);
   }
 }
 
